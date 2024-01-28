@@ -9,24 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Hash{
-  id        Int      @id @default(autoincrement())
-  original  String
+
+model Hash {
+  id       Int    @id @default(autoincrement())
+  original String
+  hashed   String
+}
+
+model Caeser {
+  id        Int    @id @default(autoincrement())
+  plaintext String
   hashed    String
+  operation String
+  key       Int
 }
-model Caeser{
-   id        Int      @id @default(autoincrement())
-   plaintext String
-   hashed String
-   operation String
-   key Int
 
+model Base64 {
+  id        Int    @id @default(autoincrement())
+  plaintext String
+  hashed    String
+  operation String
 }
-model Base64{
-   id        Int      @id @default(autoincrement())
-   plaintext String
-   hashed String
-   operation String
-   
 
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String   
+  email     String   @unique
+  credits   Int      @default(500)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  image     String   @default("")
 }

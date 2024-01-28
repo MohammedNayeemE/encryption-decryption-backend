@@ -24,5 +24,4 @@ function caesarDecrypt(str: string, key: number): string {
 }
 
 // Example usage
-export  {caesarDecrypt};
-export default caesarCipher;
+export  {caesarDecrypt , caesarCipher};

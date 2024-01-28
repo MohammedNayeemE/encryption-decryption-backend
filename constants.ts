@@ -1,0 +1,2 @@
+const JWT_SECRET = 'MOHAMMED_NAYEEM';
+export {JWT_SECRET};
