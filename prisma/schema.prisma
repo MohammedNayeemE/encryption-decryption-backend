@@ -48,8 +48,9 @@ model User {
   updatedAt DateTime @default(now()) @updatedAt
   image     String   @default("")
 }
+
 model PasswordReset {
-  userId String @id
-  token String
-  expiresAt DateTime 
+  userId    String   @id
+  token     String
+  expiresAt DateTime
 }
