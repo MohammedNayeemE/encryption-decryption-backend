@@ -36,4 +36,15 @@ const validateBASE64 = (req : Request , res : Response , next : NextFunction) =>
     next();
 } 
 
-export {validateBASE64 , validateMD5 , validatedCAESER};
+const validateROT13 = (req : Request , res : Response , next : NextFunction) =>{
+    const {plaintext  , hashed , operation } = req.body;
+    if((! plaintext && !hashed) || !operation){
+        return res.status(400).json(
+            {
+                error : `Invalid or missing parameters`
+            }
+        )
+    }
+    next();
+} 
+export {validateBASE64 , validateMD5 , validatedCAESER , validateROT13};
