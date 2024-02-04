@@ -50,7 +50,7 @@ model User {
 }
 
 model PasswordReset {
-  userId    String   @id
+  userId    String   @id @unique
   token     String
   expiresAt DateTime
 }
