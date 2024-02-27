@@ -1,27 +1,19 @@
-// import { Request , Response , NextFunction } from "express";
-// import jwt from 'jsonwebtoken'
-// import { JWT_SECRET } from "../constants";
-// const authenticationUser = (req : Request , res : Response , next : NextFunction) =>{
-//     const token = req.cookies['authToken'];
-//     if(!token){
-//         return res.status(401).json(
-//             {
-//                 message : "Unauthorised"
-//             }
-//         );
-//     }
-//     try{
-//         const decoded = jwt.verify(token , JWT_SECRET) as {
-//             userId : number
-//         }
-//         req.userId  = decoded.userId;
-//         next();
-//     }
-//     catch(error){
-//         return res.status(401).json({
-//             message : 'Unauthorised'
-//         })
-//     }
-// }
-
-// export {authenticationUser};;
+import {  Response , NextFunction } from "express";
+import { JWT_SECRET } from "../constants";
+import jwt from 'jsonwebtoken'
+const authValidation = (req : any , res : Response , next : NextFunction) =>{
+    const {authToken} = req.cookies;
+    if(authToken){
+        jwt.verify(authToken , JWT_SECRET , (err:any , data : any) =>{
+            if (err) return res.status(401).send('Unauthorised')
+            req.user = data
+            next();
+        })
+    }
+    else{
+        return res.status(401).json({
+            message : 'Unauthorised',
+        })
+    }
+}
+export {authValidation}

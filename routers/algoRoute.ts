@@ -18,6 +18,8 @@ router.post('/md5' , validateMD5 , async (req : Request , res : Response) =>{
     if(!text){
         res.status(400).send(`missing text`);
     }
+    
+    
     const hashed = md5(text);
     try{
         const response = await prisma.hash.create({

@@ -30,11 +30,11 @@ router.post('/signup', async (req: Request, res: Response) => {
             }
         })
 
-        const token = jwt.sign(
-            { userId: user.id }, JWT_SECRET
-        );
+        // const token = jwt.sign(
+        //     { userId: user.id }, JWT_SECRET
+        // );
 
-        res.cookie('authToken', token, { httpOnly: true })
+        //res.cookie('authToken', token)
         res.status(201).json({
             message: 'User Signed succesfully'
         });
@@ -66,13 +66,16 @@ router.post('/login', async (req: Request, res: Response) => {
             })
         }
 
-        const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+        const token = jwt.sign({ email: user.email }, JWT_SECRET);
 
-        res.cookie('authToken', token, { httpOnly: true })
-
-        res.status(200).json({
-            message: 'Logged in successfully'
+        res.cookie('authToken', token).json({
+            email : user.email,
+            token : token
         })
+
+        // res.status(200).json({
+        //     message: 'Logged in successfully'
+        // })
     }
     catch (error) {
         console.error('error loggin in', error);
